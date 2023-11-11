@@ -1,0 +1,35 @@
+{
+  "name": "crud-basic",
+  "version": "1.0.0",
+  "description": "Resolução dod esafio apresentado por @constHugoLinhares - CRUD com NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stallone-dev/node-crud-basic.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "TypeScript",
+    "NodeJS",
+    "CRUD",
+    "API"
+  ],
+  "author": "Stallone L. de Souza",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/stallone-dev/node-crud-basic/issues"
+  },
+  "homepage": "https://github.com/stallone-dev/node-crud-basic#readme",
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "typescript": "^5.2.2"
+  }
+}
