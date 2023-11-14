@@ -32,12 +32,12 @@ async function updateTask(request, response) {
 function _updateTasks(id, title, description, completed){
     const actual_data = TEMPORARY_DB;
 
-    for(let lin=0, MAX_ITERATOR = actual_data.length; lin < MAX_ITERATOR; lin++){
-        const data = actual_data[lin];
+    for(let item=0, MAX_ITERATOR = actual_data.length; item < MAX_ITERATOR; item++){
+        const data = actual_data[item];
 
         if(data.id === id){_configureTask(data, title, description, completed);}
 
-        TEMPORARY_DB[lin] = data;
+        TEMPORARY_DB[item] = data;
     }
 
     return;
@@ -46,10 +46,10 @@ function _updateTasks(id, title, description, completed){
 function _configureTask(data_to_update, title, description, completed){
     const _now = Date.now();
 
-    data_to_update.title = title;
-    data_to_update.description = description;
-    data_to_update.updated_ad = _now;
-    if(completed){data_to_update.completed_at = _now;}
+    data_to_update.title        = title;
+    data_to_update.description  = description;
+    data_to_update.updated_ad   = _now;
+    data_to_update.completed_at = completed ? _now : null;
 
     return data_to_update;
 }
