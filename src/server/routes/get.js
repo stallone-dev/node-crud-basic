@@ -4,11 +4,12 @@ import { _getDBData, _validateToken } from "../util.js";
 
 async function getTasks(request, response){
 
-    if(!_validateToken(request.headers)){
+    const validate_token = _validateToken(request.headers);
+    if(!validate_token.result){
         response.writeHead(401);
-        response.end(
-            JSON.stringify({error: "Not authorized", data:null})
-        );
+        response.end(JSON.stringify({
+            error: validate_token.error, data:null
+        }));
         return;
     }
 
