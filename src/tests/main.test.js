@@ -194,7 +194,67 @@ describe("API workflows", () => {
     });
 
     describe("GET - Workflow", ()=>{
+        it("Autorized request", async () => {
+            const token = "123";
 
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "GET",
+                headers: {authorization: token}
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 200);
+            deepStrictEqual(response.result, "Authorized request");
+            notDeepStrictEqual(response.data, null);
+        });
+
+        it("Request without token", async () => {
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "GET",
+                headers: {}
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 401);
+            deepStrictEqual(response.error, "Not find auth");
+            deepStrictEqual(response.data, null);
+        });
+
+        it("Request empty token", async () => {
+            const token = "";
+
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "GET",
+                headers: {authorization: token}
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 401);
+            deepStrictEqual(response.error, "Not authorized");
+            deepStrictEqual(response.data, null);
+        });
+
+        it("Minimal GET stress", async () => {
+            const iterations = 100;
+            let req_status = new Array(iterations);
+            let res_results = new Array(iterations);
+
+            for(let i =0; i < iterations; i++){
+                const token = "123";
+
+                const request = await fetch(`${_URL}/tasks`, {
+                    method: "GET",
+                    headers: {authorization: token}
+                });
+
+                const response = await request.json();
+                req_status[i] = request.status;
+                res_results[i] = response.result;
+            }
+
+            deepStrictEqual(req_status.every(e => e === 200), true);
+            deepStrictEqual(res_results.every(e => e ==="Authorized request"), true);
+        });
     });
 
     describe("PUT - Workflow", () => {
