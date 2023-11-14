@@ -259,6 +259,53 @@ describe("API workflows", () => {
 
     describe("PUT - Workflow", () => {
 
+        it("Update random task", async () => {
+            const data = {
+                id: _global_task_test.id,
+                title: "UPDATE THIS TASK",
+                description: "RANDOM TEXT TO TEST"
+            };
+
+            const request = await fetch(`${_URL}/tasks/put`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            const consult_data = Object.entries(JSON.parse(_getDBData()));
+            const modified_data = [...consult_data.filter(item => item[1].id === _global_task_test.id)];
+
+            deepStrictEqual(request.status, 200);
+            deepStrictEqual(response.result, "Task updated");
+            deepStrictEqual(modified_data[0][1].title, data.title);
+            deepStrictEqual(modified_data[0][1].description, data.description);
+            deepStrictEqual(modified_data[0][1].completed_at, null);
+        });
+
+        it("Update random task with 'completed' param", async () => {
+            const data = {
+                id: _global_task_test.id,
+                title: "RESOLVE THIS TASK",
+                description: "RANDOM FINAL TEXT TO TEST",
+                completed: true,
+            };
+
+            const request = await fetch(`${_URL}/tasks/put`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            const consult_data = Object.entries(JSON.parse(_getDBData()));
+            const modified_data = [...consult_data.filter(item => item[1].id === _global_task_test.id)];
+
+            deepStrictEqual(request.status, 200);
+            deepStrictEqual(response.result, "Task updated");
+            deepStrictEqual(modified_data[0][1].title, data.title);
+            deepStrictEqual(modified_data[0][1].description, data.description);
+            notDeepStrictEqual(modified_data[0][1].completed, null);
+        });
+
     });
 
 });
