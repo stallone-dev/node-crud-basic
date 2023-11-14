@@ -11,17 +11,18 @@
     -- node:http => for creating server
     -- node:events => for capture user data
     -- node:crypto =>for create rudimentary IDs from tasks
-    -- node:fs => for access and modify JSON file (begiiner)
+    -- node:fs => for access and modify JSON file (beginner)
     -- node:test and node:assert => for automated testing
 
     This project started in: 11/11/2023
-    This project (maybe) fineshed in: 13/11/23
+    This project first version: 13/11/23
 
-    Total time in hours: ~9h
+    Total time for first version: ~9h
+        -- First day of updates (14/11/23): ~3h
 
-    Technical debt (13/11/23):
-        -- Improve testing cases
-        -- Find a better way to validate the DATA into CrateTask
+    Technical debt (14/11/23):
+        -- Improve testing cases for PUT and DELETE
+        -- Create basic validation to confirm that an ID exists (PUT)
         -- Create DEMO front-end for simule real user interface
     =======================================================================
     author: Stallone L. de Souza
