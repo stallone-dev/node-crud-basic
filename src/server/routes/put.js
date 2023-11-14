@@ -2,23 +2,27 @@
 
 import { once } from "node:events";
 import { TEMPORARY_DB } from "../../db/temporary-db.js";
+import { _saveDBData, _validateID,_validateTaskData } from "../util.js";
 
 async function updateTask(request, response) {
     const { id, title, description, completed=false } = JSON.parse(await once(request, "data"));
 
-    if( !id || !title || !description ){
-        response.writeHead(400);
-        let error = "";
+    const validate_id = _validateID(id);
+    const validate_data = _validateTaskData(title, description);
 
-        if(!id){error = "Invalid ID";}
-        if(!title){error = "Invalid title";}
-        if(!description){error = "Invalid description";}
+    if( !validate_id.result || !validate_data.result ){
+        response.writeHead(400);
+        let error = {};
+
+        if(!validate_id.result){error["id"] = validate_id.error;}
+        if(!validate_data.result){error["data"] = validate_data.error;}
 
         response.end(JSON.stringify({error: error}));
         return;
     }
 
     _updateTasks(id, title, description, completed);
+    _saveDBData(TEMPORARY_DB);
 
     response.writeHead(200);
     response.end(JSON.stringify({result: "Task updated", task_id:id}));
