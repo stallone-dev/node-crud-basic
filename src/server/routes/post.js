@@ -3,24 +3,22 @@
 import { randomInt } from "node:crypto";
 import { once } from "node:events";
 import { TEMPORARY_DB } from "../../db/temporary-db.js";
+import { _saveDBData, _validateTaskData } from "../util.js";
 
 async function createTask(request, response) {
     const { title, description } = JSON.parse(await once(request, "data"));
 
-    if( !title || !description ){
+    const validate_data = _validateTaskData(title, description);
+    if(!validate_data.result){
         response.writeHead(400);
-        let error = "";
-
-        if(!title){error = "Invalid title";}
-        if(!description){error = "Invalid description";}
-
-        response.end(JSON.stringify({error: error}));
+        response.end(JSON.stringify({error: validate_data.error}));
         return;
     }
 
     const task_data = _configDataTask(title, description);
 
     TEMPORARY_DB.push(task_data);
+    _saveDBData(TEMPORARY_DB);
 
     response.writeHead(200);
     response.end(
@@ -43,6 +41,5 @@ function _configDataTask(title, description){
 
     return task_data;
 }
-
 
 export { createTask };
