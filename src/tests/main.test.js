@@ -37,7 +37,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.result, "Post created");
         });
 
-        it("Incorrect title key", async () => {
+        it("Invalid DATA - Incorrect title key", async () => {
             const data = {
                 title_: "MY TEST TITLE",
                 description: "My first test on my NodeJS application"
@@ -53,7 +53,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Not find JSON title key");
         });
 
-        it("Incorrect description key", async () => {
+        it("Invalid DATA - Incorrect description key", async () => {
             const data = {
                 title: "MY TEST TITLE",
                 description_: "My first test on my NodeJS application"
@@ -69,7 +69,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Not find JSON description key");
         });
 
-        it("Empty title", async () => {
+        it("Invalid DATA - Empty title", async () => {
             const data = {
                 title: "",
                 description: "My first test on my NodeJS application"
@@ -85,7 +85,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Title empty");
         });
 
-        it("Empty description", async () => {
+        it("Invalid DATA - Empty description", async () => {
             const data = {
                 title: "MY TEST TITLE",
                 description: ""
@@ -101,7 +101,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Description empty");
         });
 
-        it("Title is not string", async () => {
+        it("Invalid DATA - Title is not string", async () => {
             const data = {
                 title: 42,
                 description: "My first test on my NodeJS application"
@@ -117,7 +117,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Title is not string");
         });
 
-        it("Description is not string", async () => {
+        it("Invalid DATA - Description is not string", async () => {
             const data = {
                 title: "MY TEST TITLE",
                 description: 213
@@ -133,7 +133,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Description is not string");
         });
 
-        it("Title is to long", async () => {
+        it("Invalid DATA - Title is to long", async () => {
             const data = {
                 title: "MY LONG TEST TITLE FOR TEST ON THIS NODEJS TEST RUNNER, PROBABLY IT'S SO COOL ON REAL APLICATIONS",
                 description: "My first test on my NodeJS application"
@@ -149,7 +149,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.error, "Title is to long, max: 60 chars");
         });
 
-        it("Description is to long", async () => {
+        it("Invalid DATA - Description is to long", async () => {
             const data = {
                 title: "MY FIRST TEST TITLE",
                 description: "Lorem ipsum dolor sit amet. Est voluptas nisi sit corrupti omnis qui necessitatibus repudiandae est rerum error non veritatis aperiam id nemo dicta! Est impedit tenetur in fuga quaerat ut omnis molestiae. Et maiores doloremque sit quae maiores id tempore laudantium est eligendi deserunt ab enim corrupti. Aut accusantium obcaecati qui molestiae atque non quos quam.Ab voluptatum voluptatem nam voluptas tempora qui quisquam voluptas. Aut accusantium soluta ab voluptate ipsa eos optio repudiandae qui animi labore. Et quisquam vero id quaerat distinctio et ducimus accusantium est galisum fugiat sed eveniet quod qui dolores molestias ut ratione perferendis."
