@@ -571,6 +571,21 @@ describe("API workflows", () => {
             deepStrictEqual(response.task_id, data.id);
         });
 
+        it("Not find ID in DB", async () => {
+            const token = "123";
+            const data = {id: "738694-1700047625003"};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.data, "ID not found");
+        });
+
         it("Invalid TOKEN - Request without token", async () => {
             const data = {id: _global_task_test().id};
 

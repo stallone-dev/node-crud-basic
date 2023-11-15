@@ -1,7 +1,7 @@
 "use strict";
 
 import { once } from "node:events";
-import { _saveDBData, _validateID, _validateToken } from "../util.js";
+import { _saveDBData, _validateID, _validateToken, _searchID } from "../util.js";
 import { TEMPORARY_DB } from "../../db/temporary-db.js";
 
 async function deleteTask(request, response) {
@@ -10,13 +10,14 @@ async function deleteTask(request, response) {
     const validate_id = _validateID(id);
     const validate_auth = _validateToken(request.headers);
 
-    if(!validate_id.result || !validate_auth.result){
+    if(!validate_id.result || !validate_auth.result || !_searchID(id)){
         response.writeHead(400);
 
         let error = {};
 
         if(!validate_id.result){error["id"] = validate_id.error;}
         if(!validate_auth.result){error["auth"] = validate_auth.error;}
+        if(!_searchID(id)){error["data"] = "ID not found";}
 
         response.end(JSON.stringify({error: error}));
         return;
