@@ -10,6 +10,21 @@ function _saveDBData(data){
     writeFileSync("./src/db/db.json", JSON.stringify(data), {encoding: "utf-8"});
 }
 
+function _searchID(id){
+    const actual_data = Object.entries(JSON.parse(_getDBData()));
+
+    for(let item=0, MAX_ITERATOR = actual_data.length; item < MAX_ITERATOR; item++){
+
+        if(actual_data[item][1] === null){return false;}
+
+        if(actual_data[item][1].id === id){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Basic validations for MY STUDY FLOW, don't really use this (maybe)
 
 function _validateToken(headers){
@@ -99,4 +114,4 @@ function _validateTaskData(title, description){
     return {result, error};
 }
 
-export {_getDBData, _saveDBData, _validateToken, _validateID, _validateTaskData};
+export { _getDBData, _saveDBData, _validateToken, _validateID, _validateTaskData, _searchID };

@@ -305,6 +305,23 @@ describe("API workflows", () => {
             notDeepStrictEqual(modified_data[0][1].completed, null);
         });
 
+        it("Not find ID in DB", async () => {
+            const data = {
+                id: "738694-1700057625003",
+                title: "UPDATE THIS TASK",
+                description: "RANDOM TEXT TO TEST"
+            };
+
+            const request = await fetch(`${_URL}/tasks/put`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.data, "ID not found");
+        });
+
         it("Invalid ID - Not defined ID in JSON", async () => {
             const data = {
                 id__: _global_task_test().id,
