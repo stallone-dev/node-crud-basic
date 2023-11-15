@@ -172,8 +172,8 @@ describe("API workflows", () => {
 
             for(let i =0; i < iterations; i++){
                 const data = {
-                    title: randomInt(1,300000).toString(),
-                    description: randomUUID()
+                    title: "POST STRESS - " + randomInt(1,300000).toString(),
+                    description: "POST STRESS - " + randomUUID()
                 };
 
                 const request = await fetch(`${_URL}/tasks`, {
@@ -207,7 +207,7 @@ describe("API workflows", () => {
             notDeepStrictEqual(response.data, null);
         });
 
-        it("Request without token", async () => {
+        it("Invalid TOKEN - Request without token", async () => {
             const request = await fetch(`${_URL}/tasks`, {
                 method: "GET",
                 headers: {}
@@ -219,7 +219,7 @@ describe("API workflows", () => {
             deepStrictEqual(response.data, null);
         });
 
-        it("Request empty token", async () => {
+        it("Invalid TOKEN - Request empty token", async () => {
             const token = "";
 
             const request = await fetch(`${_URL}/tasks`, {
@@ -508,6 +508,34 @@ describe("API workflows", () => {
             deepStrictEqual(request.status, 400);
             deepStrictEqual(response.error.data, "Description is to long, max: 300 chars");
         });
+
+        it("Minimal PUT stress", async () => {
+            const iterations = 100;
+            let req_status = new Array(iterations);
+            let res_results = new Array(iterations);
+
+            for(let i =0; i < iterations; i++){
+                const data = {
+                    id: _global_task_test().id,
+                    title: "STRESS PUT - " + randomInt(1,300000).toString(),
+                    description: "STRESS PUT - " + randomUUID(),
+                    completed_at: randomInt(0,1) === 1 ? true : false
+                };
+
+                const request = await fetch(`${_URL}/tasks/put`, {
+                    method: "POST",
+                    body: JSON.stringify(data)
+                });
+                const response = await request.json();
+                req_status[i] = request.status;
+                res_results[i] = response.result;
+            }
+
+            deepStrictEqual(req_status.every(e => e === 200), true);
+            deepStrictEqual(res_results.every(e => e ==="Task updated"), true);
+        });
+
+    });
 
     describe("DELETE - Workflow", ()=>{
         it("Delete random task", async () => {
