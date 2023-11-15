@@ -509,6 +509,111 @@ describe("API workflows", () => {
             deepStrictEqual(response.error.data, "Description is to long, max: 300 chars");
         });
 
+    describe("DELETE - Workflow", ()=>{
+        it("Delete random task", async () => {
+            const token = "123";
+            const data = {id: _global_task_test().id};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 200);
+            deepStrictEqual(response.result, "Task deleted");
+            deepStrictEqual(response.task_id, data.id);
+        });
+
+        it("Invalid TOKEN - Request without token", async () => {
+            const data = {id: _global_task_test().id};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.auth, "Not find auth");
+        });
+
+        it("Invalid TOKEN - Request empty token", async () => {
+            const token = "";
+            const data = {id: _global_task_test().id};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.auth, "Not authorized");
+        });
+
+        it("Invalid ID - Not defined ID in JSON", async () => {
+            const token = "123";
+            const data = {id__: _global_task_test().id};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.id, "Not find JSON ID key");
+        });
+
+        it("Invalid ID - empty", async () => {
+            const token = "123";
+            const data = {id: ""};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.id, "ID empty");
+        });
+
+        it("Invalid ID - Not String", async () => {
+            const token = "123";
+            const data = {id: Number(String(_global_task_test().id).replace("-",""))};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.id, "ID is not string");
+        });
+
+        it("Invalid ID - Size incorrectly", async () => {
+            const token = "123";
+            const data = {id: String(_global_task_test().id).replace("-","")};
+
+            const request = await fetch(`${_URL}/tasks/delete`, {
+                method: "POST",
+                headers: {authorization: token},
+                body: JSON.stringify(data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 400);
+            deepStrictEqual(response.error.id, "ID is not correctly size");
+        });
     });
 
 });
