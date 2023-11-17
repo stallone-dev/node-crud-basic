@@ -4,9 +4,10 @@
   "description": "Resolução do desafio apresentado por @constHugoLinhares - CRUD com NodeJS",
   "main": "index.js",
   "scripts": {
-    "dev": "node --trace-warnings --watch ./src/server/main.js",
-    "test:dev": "node --test --watch ./src/tests/main.test.js",
-    "test": "node --test ./src/tests/main.test.js"
+    "start": "node --env-file ./src/.env ./src/server/main.js",
+    "dev": "node --env-file ./src/.env --trace-warnings --watch ./src/server/main.js",
+    "test:dev": "node --env-file ./src/.env --test --watch ./src/tests/main.test.js",
+    "test": "node --env-file ./src/.env --test ./src/tests/main.test.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "eslint": "^8.53.0"
+    "eslint": "^8.53.0",
+    "tap": "^18.5.8"
   }
 }
