@@ -1,10 +1,15 @@
+"use strict";
+
 import { describe, before, after, it } from "node:test";
 import { deepStrictEqual, notDeepStrictEqual } from "node:assert";
 import { randomInt, randomUUID } from "node:crypto";
 import { TEMPORARY_DB } from "../db/temporary-db.js";
 import { _getDBData } from "../server/util.js";
 
-const _URL = "http://localhost:3000";
+const hostname = process.env.HOSTNAME || "127.0.0.1";
+const port = process.env.PORT || 8080;
+
+const _URL = `http://${hostname}:${port}`;
 
 describe("API workflows", () => {
     let _server = {};

@@ -16,14 +16,8 @@
 
     This project started in: 11/11/2023
     This project first version: 13/11/23
+    This procjet final version: 16/11/23 (After revisions)
 
-    Total time for first version: ~9h
-        -- First day of updates (14/11/23): ~3h
-
-    Technical debt (14/11/23):
-        -- Improve testing cases for PUT and DELETE
-        -- Create basic validation to confirm that an ID exists (PUT)
-        -- Create DEMO front-end for simule real user interface
     =======================================================================
     author: Stallone L. de Souza
     github: https://github.com/stallone-dev
@@ -43,6 +37,8 @@ async function handler(request, response) {
     if(request.url === "/tasks" && request.method === "POST"){
         return await createTask(request, response);
     }
+const hostname = process.env.HOSTNAME || "127.0.0.1";
+const port = process.env.PORT || 8080;
 
     if(request.url === "/tasks" && request.method === "GET"){
         return await getTasks(request, response);
