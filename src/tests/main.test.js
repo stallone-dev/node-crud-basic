@@ -19,6 +19,36 @@ describe("API workflows", () => {
     after(done => _server.close(done));
     // ---------------------------------------------
 
+    describe("ROUTES - Others ", () => {
+        const temporary_data = {
+            title: "Route test",
+            description: "Testing routes"
+        };
+
+        it("Not found route", async () => {
+            const request = await fetch(`${_URL}/ANYWHERE`, {
+                method: "POST",
+                body: JSON.stringify(temporary_data)
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 404);
+            deepStrictEqual(response.error, "Not found this route");
+        });
+
+
+        it("List routes", async () => {
+            const request = await fetch(`${_URL}/`, {
+                method: "GET",
+            });
+            const response = await request.json();
+
+            deepStrictEqual(request.status, 200);
+            deepStrictEqual(response.result, [["/","GET"], ["/tasks","POST"], ["/tasks","GET"], ["/tasks","PUT"], ["/tasks","DELETE"]]);
+        });
+
+    });
+
     describe("POST - Workflow", () => {
 
         it("Create new post", async () => {
@@ -34,7 +64,7 @@ describe("API workflows", () => {
             const response = await request.json();
 
             deepStrictEqual(request.status, 200);
-            deepStrictEqual(response.result, "Post created");
+            deepStrictEqual(response.result, "Task created");
         });
 
         it("Invalid DATA - Incorrect title key", async () => {
@@ -187,7 +217,7 @@ describe("API workflows", () => {
             }
 
             deepStrictEqual(req_status.every(e => e === 200), true);
-            deepStrictEqual(res_results.every(e => e ==="Post created"), true);
+            deepStrictEqual(res_results.every(e => e ==="Task created"), true);
         });
 
     });
