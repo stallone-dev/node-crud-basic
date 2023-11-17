@@ -1,8 +1,9 @@
 "use strict";
 
 import { once } from "node:events";
-import { _saveDBData, _validateID, _validateToken, _searchID } from "../util.js";
 import { TEMPORARY_DB } from "../../db/temporary-db.js";
+import { _saveDBData, _searchID } from "../util/db-controller.js";
+import { _validateID, _validateToken } from "../util/validations.js";
 
 async function deleteTask(request, response) {
     const { id } = JSON.parse(await once(request, "data"));

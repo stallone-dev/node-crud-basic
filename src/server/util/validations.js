@@ -1,31 +1,20 @@
-// This functions exist only for MY STUDY, not use for real aplications (probably...)
+"use strict";
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { routes } from "../routes.js";
 
-function _getDBData(){
-    return readFileSync("./src/db/db.json", {encoding: "utf-8"});
-}
+function _validateRoute(url, method){
+    const _routes = routes.listRoutes();
 
-function _saveDBData(data){
-    writeFileSync("./src/db/db.json", JSON.stringify(data), {encoding: "utf-8"});
-}
+    const _exists = (url, method) => {
+        return _routes.map(item => item[0] === url && item[1] === method);
+    };
 
-function _searchID(id){
-    const actual_data = Object.entries(JSON.parse(_getDBData()));
-
-    for(let item=0, MAX_ITERATOR = actual_data.length; item < MAX_ITERATOR; item++){
-
-        if(actual_data[item][1] === null){return false;}
-
-        if(actual_data[item][1].id === id){
-            return true;
-        }
+    if(_exists(url, method).includes(true)){
+        return true;
     }
 
     return false;
 }
-
-// Basic validations for MY STUDY FLOW, don't really use this (maybe)
 
 function _validateToken(headers){
     let result = false;
@@ -61,7 +50,7 @@ function _validateID(id){
         error = "ID is not string";
         return {result, error};
     }
-    if(id.length !== 20){
+    if(id.length !== 23){
         error = "ID is not correctly size";
         return {result, error};
     }
@@ -114,4 +103,4 @@ function _validateTaskData(title, description){
     return {result, error};
 }
 
-export { _getDBData, _saveDBData, _validateToken, _validateID, _validateTaskData, _searchID };
+export { _validateRoute, _validateToken, _validateID, _validateTaskData };

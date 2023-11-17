@@ -1,6 +1,7 @@
 "use strict";
 
-import { _getDBData, _validateToken } from "../util.js";
+import { _getDBData } from "../util/db-controller.js";
+import { _validateToken } from "../util/validations.js";
 
 async function getTasks(request, response){
 

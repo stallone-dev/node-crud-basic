@@ -31,6 +31,7 @@ import { createTask } from "./routes/post.js";
 import { getTasks } from "./routes/get.js";
 import { updateTask } from "./routes/put.js";
 import { deleteTask } from "./routes/delete.js";
+import { _validateRoute } from "./util/validations.js";
 
 async function handler(request, response) {
 
@@ -56,6 +57,6 @@ const port = process.env.PORT || 8080;
     response.end(JSON.stringify({error: "Not found this route"}));
 }
 
-const app = createServer(handler).listen(3000, () => console.log("Listning at 3000"));
+const app = createServer(handler).listen(port, hostname, () => {console.log(`Server running at http://${hostname}:${port}/`);});
 
 export { app };

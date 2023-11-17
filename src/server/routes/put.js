@@ -2,7 +2,8 @@
 
 import { once } from "node:events";
 import { TEMPORARY_DB } from "../../db/temporary-db.js";
-import { _saveDBData, _validateID, _validateTaskData, _searchID } from "../util.js";
+import { _saveDBData, _searchID } from "../util/db-controller.js";
+import { _validateID, _validateTaskData } from "../util/validations.js";
 
 async function updateTask(request, response) {
     const { id, title, description, completed=false } = JSON.parse(await once(request, "data"));
