@@ -13,7 +13,8 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 - `GET` - Consultar todas as tasks existentes
 - `PUT` - Modificar uma task com base no ID dela
 - `DELETE` - Apagar por completo uma task
-- `/` - Listar todas as rotas criadas>
+- `/` - Listar todas as rotas criadas
+
 **Cada task possui a seguinte estrutura**:
 ```json
 {
@@ -71,8 +72,8 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 **Resultado esperado**
 ```json
 {
-    "result": "Authorized request",
-	"data"  : "[{data}]"
+    "result" : "Authorized request",
+    "data"   : "[{data}]"
 }
 ```
 ---
@@ -87,7 +88,7 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 {
     "id"          : "id_123456-1122334455667",
     "title"       : "string",
-    "description" : "string
+    "description" : "string"
 }
 ```
 
@@ -95,7 +96,7 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 ```json
 {
     "result"  : "Task updated",
-	"task_id" : "id_123456-1122334455667"
+    "task_id" : "id_123456-1122334455667"
 }
 ```
 ---
@@ -108,11 +109,11 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 **Dados esperados**
 ```json
 "headers": {
-    "authorizaton": "token (currently anything non-null)"
+    "authorizaton" : "token (currently anything non-null)"
 }
 
 {
-    "id"          : "id_123456-1122334455667",
+    "id" : "id_123456-1122334455667"
 }
 ```
 
@@ -120,7 +121,7 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 ```json
 {
     "result"  : "Task deleted",
-	"task_id" : "id_123456-1122334455667"
+    "task_id" : "id_123456-1122334455667"
 }
 ```
 
