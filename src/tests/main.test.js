@@ -4,7 +4,7 @@ import { describe, before, after, it } from "node:test";
 import { deepStrictEqual, notDeepStrictEqual } from "node:assert";
 import { randomInt, randomUUID } from "node:crypto";
 import { TEMPORARY_DB } from "../db/temporary-db.js";
-import { _getDBData } from "../server/util.js";
+import { _getDBData } from "../server/util/db-controller.js";
 
 const hostname = process.env.HOSTNAME || "127.0.0.1";
 const port = process.env.PORT || 8080;
@@ -300,8 +300,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -324,8 +324,8 @@ describe("API workflows", () => {
                 completed: true,
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -347,8 +347,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -364,8 +364,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -381,8 +381,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -393,13 +393,13 @@ describe("API workflows", () => {
 
         it("Invalid ID - Not String", async () => {
             const data = {
-                id: Number(String(_global_task_test().id).replace("-","")),
+                id: 1234,
                 title: "UPDATE THIS TASK",
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -415,8 +415,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -432,8 +432,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -449,8 +449,8 @@ describe("API workflows", () => {
                 description_: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -466,8 +466,8 @@ describe("API workflows", () => {
                 description: "RANDOM TEXT TO TEST"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -483,8 +483,8 @@ describe("API workflows", () => {
                 description: ""
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -500,8 +500,8 @@ describe("API workflows", () => {
                 description: "UPDATE"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -517,8 +517,8 @@ describe("API workflows", () => {
                 description: 123
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -534,8 +534,8 @@ describe("API workflows", () => {
                 description: "update"
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -551,8 +551,8 @@ describe("API workflows", () => {
                 description: "Lorem ipsum dolor sit amet. Est voluptas nisi sit corrupti omnis qui necessitatibus repudiandae est rerum error non veritatis aperiam id nemo dicta! Est impedit tenetur in fuga quaerat ut omnis molestiae. Et maiores doloremque sit quae maiores id tempore laudantium est eligendi deserunt ab enim corrupti. Aut accusantium obcaecati qui molestiae atque non quos quam.Ab voluptatum voluptatem nam voluptas tempora qui quisquam voluptas. Aut accusantium soluta ab voluptate ipsa eos optio repudiandae qui animi labore. Et quisquam vero id quaerat distinctio et ducimus accusantium est galisum fugiat sed eveniet quod qui dolores molestias ut ratione perferendis."
             };
 
-            const request = await fetch(`${_URL}/tasks/put`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "PUT",
                 body: JSON.stringify(data)
             });
             const response = await request.json();
@@ -574,8 +574,8 @@ describe("API workflows", () => {
                     completed_at: randomInt(0,1) === 1 ? true : false
                 };
 
-                const request = await fetch(`${_URL}/tasks/put`, {
-                    method: "POST",
+                const request = await fetch(`${_URL}/tasks`, {
+                    method: "PUT",
                     body: JSON.stringify(data)
                 });
                 const response = await request.json();
@@ -594,8 +594,8 @@ describe("API workflows", () => {
             const token = "123";
             const data = {id: _global_task_test().id};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -610,8 +610,8 @@ describe("API workflows", () => {
             const token = "123";
             const data = {id: "738694-1700047625003"};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -624,8 +624,8 @@ describe("API workflows", () => {
         it("Invalid TOKEN - Request without token", async () => {
             const data = {id: _global_task_test().id};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {},
                 body: JSON.stringify(data)
             });
@@ -639,8 +639,8 @@ describe("API workflows", () => {
             const token = "";
             const data = {id: _global_task_test().id};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -654,8 +654,8 @@ describe("API workflows", () => {
             const token = "123";
             const data = {id__: _global_task_test().id};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -669,8 +669,8 @@ describe("API workflows", () => {
             const token = "123";
             const data = {id: ""};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -682,10 +682,10 @@ describe("API workflows", () => {
 
         it("Invalid ID - Not String", async () => {
             const token = "123";
-            const data = {id: Number(String(_global_task_test().id).replace("-",""))};
+            const data = {id: 123123124214};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
@@ -699,8 +699,8 @@ describe("API workflows", () => {
             const token = "123";
             const data = {id: String(_global_task_test().id).replace("-","")};
 
-            const request = await fetch(`${_URL}/tasks/delete`, {
-                method: "POST",
+            const request = await fetch(`${_URL}/tasks`, {
+                method: "DELETE",
                 headers: {authorization: token},
                 body: JSON.stringify(data)
             });
