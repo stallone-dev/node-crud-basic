@@ -9,21 +9,20 @@ Projeto inspirado no [Desafio-01-Node](https://github.com/constHugoLinhares/Desa
 ## Objetivo
 
 >**Desenvolvolver uma API simples, no modelo CRUD, capaz dos seguintes comandos:**
->- `POST` - Adicionar novas tasks
->- `GET` - Consultar todas as tasks existentes
->- `PUT` - Modificar uma task com base no ID dela
->- `DELETE` - Apagar por completo uma task
->- `/` - Listar todas as rotas criadas
-
+- `POST` - Adicionar novas tasks
+- `GET` - Consultar todas as tasks existentes
+- `PUT` - Modificar uma task com base no ID dela
+- `DELETE` - Apagar por completo uma task
+- `/` - Listar todas as rotas criadas>
 **Cada task possui a seguinte estrutura**:
 ```json
 {
-    id           : "id_123456-1122334455667",
-    title        : "Anything (with <=60 chars)",
-    description  : "Anything (with <=300 chars)",
-    created_at   : 1122334455667,
-    updated_at   : 1122334455667,
-    completed_at : null | 1122334455667
+    "id"           : "id_123456-1122334455667",
+    "title"        : "Anything (with <=60 chars)",
+    "description"  : "Anything (with <=300 chars)",
+    "created_at"   : 1122334455667,
+    "updated_at"   : 1122334455667,
+    "completed_at" : null | 1122334455667
 }
 ```
 
