@@ -27,34 +27,23 @@
 "use strict";
 
 import { createServer } from "node:http";
-import { createTask } from "./routes/post.js";
-import { getTasks } from "./routes/get.js";
-import { updateTask } from "./routes/put.js";
-import { deleteTask } from "./routes/delete.js";
+import { routes } from "./routes.js";
 import { _validateRoute } from "./util/validations.js";
 
-async function handler(request, response) {
-
-    if(request.url === "/tasks" && request.method === "POST"){
-        return await createTask(request, response);
-    }
 const hostname = process.env.HOSTNAME || "127.0.0.1";
 const port = process.env.PORT || 8080;
 
-    if(request.url === "/tasks" && request.method === "GET"){
-        return await getTasks(request, response);
-    }
+async function handler(request, response) {
+    const {url, method} = request;
 
-    if(request.url === "/tasks/put" && request.method === "POST"){
-        return await updateTask(request, response);
-    }
+    const validate_route = _validateRoute(url, method);
 
-    if(request.url === "/tasks/delete" && request.method === "POST"){
-        return await deleteTask(request, response);
+    if(validate_route){
+        const route = routes.useRoute(url, method);
+        return await route(request,response);
+    } else {
+        response.writeHead(404).end(JSON.stringify({error: "Not found this route"}));
     }
-
-    response.writeHead(404);
-    response.end(JSON.stringify({error: "Not found this route"}));
 }
 
 const app = createServer(handler).listen(port, hostname, () => {console.log(`Server running at http://${hostname}:${port}/`);});
